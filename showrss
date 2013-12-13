@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+import feedparser
+import subprocess
+import ConfigParser
+import sys
+import md5
+import syslog
+import os.path
+import urllib
+import urlparse
+import ConfigParser
+
+def log(level, message):
+    print message
+    syslog.syslog(level, message.encode('ascii', 'ignore'))
+
+
+# Settings.
+config_file = os.path.expanduser("~/.showrss")
+config = ConfigParser.ConfigParser()
+config.read(config_file)
+user_id = config.get("default", "user_id")
+
+# Logging.
+log(syslog.LOG_INFO, "Checking for new shows")
+
+# Load the cache.
+cachefile = os.path.expanduser("~/.showrss_cache")
+cache = ConfigParser.ConfigParser()
+cache.read(cachefile)
+
+# Fetch the feed.
+url = "http://showrss.info/rss.php?user_id=%s&hd=0&proper=null" % user_id
+feed = feedparser.parse(url)
+
+creatd = 1
+try:
+    cache.add_section("entries")
+except:
+    created = 0
+    
+shows = []
+
+for item in feed['items']:
+
+    title = item['title']
+    identifier = item['id']
+    key = md5.new(identifier).hexdigest()
+    torrent = item['links'][0]['href']
+    
+    try:
+        cache.get("entries", key)
+    except:
+        log(syslog.LOG_INFO, "Downloading '%s'..." % title)
+        try:
+            cache.set("entries", key, "1")
+            subprocess.check_call(["transmission-remote", "-a", torrent])
+            with open(cachefile, 'w+') as outputfile:
+                cache.write(outputfile)
+                outputfile.close()
+                shows.append(title)
+        except Exception as e:
+            log(syslog.LOG_INFO, "Unable to download '%s'" % torrent)
