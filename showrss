@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 
-import feedparser
 import subprocess
 import ConfigParser
-import sys
 import md5
 import syslog
 import os.path
-import urllib
-import urlparse
-import ConfigParser
+
+import feedparser
+
 
 def log(level, message):
     print message
