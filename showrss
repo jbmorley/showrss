@@ -8,7 +8,6 @@ import os.path
 
 import feedparser
 
-
 def log(level, message):
     print message
     syslog.syslog(level, message.encode('ascii', 'ignore'))
@@ -19,6 +18,7 @@ config_file = os.path.expanduser("~/.showrss")
 config = ConfigParser.ConfigParser()
 config.read(config_file)
 user_id = config.get("default", "user_id")
+command = config.get("default", "command").split(" ")
 
 # Logging.
 log(syslog.LOG_INFO, "Checking for new shows")
@@ -53,7 +53,7 @@ for item in feed['items']:
         log(syslog.LOG_INFO, "Downloading '%s'..." % title)
         try:
             cache.set("entries", key, "1")
-            subprocess.check_call(["transmission-remote", "-a", torrent])
+            subprocess.check_call(command + [torrent])
             with open(cachefile, 'w+') as outputfile:
                 cache.write(outputfile)
                 outputfile.close()
