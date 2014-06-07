@@ -8,10 +8,10 @@ import os.path
 
 import feedparser
 
-def log(level, message):
-    print message
+def log(level, message, console=True):
+    if console:
+        print message.encode('ascii', 'ignore')
     syslog.syslog(level, message.encode('ascii', 'ignore'))
-
 
 # Settings.
 config_file = os.path.expanduser("~/.showrss")
@@ -19,9 +19,10 @@ config = ConfigParser.ConfigParser()
 config.read(config_file)
 user_id = config.get("default", "user_id")
 command = config.get("default", "command").split(" ")
+notifier = config.get("default", "notifier").split(" ")
 
 # Logging.
-log(syslog.LOG_INFO, "Checking for new shows")
+log(syslog.LOG_INFO, "Checking for new shows", False)
 
 # Load the cache.
 cachefile = os.path.expanduser("~/.showrss_cache")
@@ -51,6 +52,8 @@ for item in feed['items']:
         cache.get("entries", key)
     except:
         log(syslog.LOG_INFO, "Downloading '%s'..." % title)
+        if (notifier):
+            subprocess.check_call(notifier + [title.encode('ascii', 'ignore')])
         try:
             cache.set("entries", key, "1")
             subprocess.check_call(command + [torrent])
