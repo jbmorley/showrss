@@ -44,10 +44,12 @@ Configuration
 
 `showrss` expects to find a configuration file at `~/.showrss`:
 
-    [default]
+```ini
+[default]
 
-    user_id = 12345
-    command = transmission-remote -a
+user_id = 12345
+command = transmission-remote -a
+```
 
 The configuration file defines two things:
 
