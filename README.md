@@ -84,7 +84,7 @@ command = open /Applications/Transmission.app
 
 The command-line for providing notifications of torrent downloads. The notification message is passed as the last argument.
 
-For example, notifications can be posted to the Notification Center on OS X by using the `terminal-notifier` tool:
+For example, notifications can be posted to the Notification Center on OS X by using `terminal-notifier`:
 
 ```ini
 notifier = /usr/bin/terminal-notifier -title ShowRSS -message
