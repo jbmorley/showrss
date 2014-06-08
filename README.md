@@ -49,6 +49,7 @@ Configuration
 
 user_id = 12345
 command = transmission-remote -a
+notifier = /usr/bin/terminal-notifier -title ShowRSS -message
 ```
 
 The configuration file defines two things:
@@ -67,7 +68,7 @@ Your user_id is the value after `user_id=`. `12345` in this example.
 
 The command-line for starting torrents. The torrent URL is appended to the end of the command.
 
-e.g. Transmission on Linux:
+Transmission on Linux:
 
 ```ini
 command = transmission-remote -a
@@ -79,5 +80,12 @@ Transmission on OS X:
 command = open /Applications/Transmission.app
 ```
 
+### notifier (optional)
 
+The command-line for providing notifications of torrent downloads. The notification message is passed as the last argument.
 
+For example, notifications can be posted to the Notification Center on OS X by using the `terminal-notifier` tool:
+
+```ini
+notifier = /usr/bin/terminal-notifier -title ShowRSS -message
+```
