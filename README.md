@@ -67,15 +67,17 @@ Your user_id is the value after `user_id=`. `12345` in this example.
 
 The command-line for starting torrents. The torrent URL is appended to the end of the command.
 
-Some examples:
+e.g. Transmission on Linux:
 
-### Transmission on Linux
+```ini
+command = transmission-remote -a
+```
 
-    command = transmission-remote -a
+Transmission on OS X:
 
-### Transmission on OS X
-
-    command = open /Applications/Transmission.app
+```ini
+command = open /Applications/Transmission.app
+```
 
 
 
