@@ -21,6 +21,15 @@ user_id = config.get("default", "user_id")
 command = config.get("default", "command").split(" ")
 notifier = config.get("default", "notifier").split(" ")
 
+# Load the optional quality flag
+quality = "default"
+try:
+    quality = config.get("default", "quality")
+except:
+    pass
+if not quality in ["default", "standard", "high", "all"]:
+    exit("Unknown quality setting '%s'.\nMust be one of 'default', 'standard', 'high' or 'all'." % quality)
+
 # Logging.
 log(syslog.LOG_INFO, "Checking for new shows", False)
 
@@ -29,15 +38,20 @@ cachefile = os.path.expanduser("~/.showrss_cache")
 cache = ConfigParser.ConfigParser()
 cache.read(cachefile)
 
+# Convert the quality setting to the correct parameter.
+hd = { "default": "null", "standard": "0", "high": "1", "all": "2" }[quality]
+
+# Generate the URL.
+url = "http://showrss.info/rss.php?user_id=%s&hd=%s&proper=null" % (user_id, hd)
+
 # Fetch the feed.
-url = "http://showrss.info/rss.php?user_id=%s&hd=0&proper=null" % user_id
 feed = feedparser.parse(url)
 
-creatd = 1
+# Ensure there's a section in the cache.
 try:
     cache.add_section("entries")
 except:
-    created = 0
+    pass
     
 shows = []
 

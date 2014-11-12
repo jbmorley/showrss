@@ -80,6 +80,15 @@ Transmission on OS X:
 command = open /Applications/Transmission.app
 ```
 
+### quality (optional)
+
+The desired show quality. May be one of:
+
+- `default` - ShowRSS per-show settings
+- `standard` - Only standard torrents
+- `high` - Only 720p HD torrents
+- `all` - Both types of torrents
+
 ### notifier (optional)
 
 The command-line for providing notifications of torrent downloads. The notification message is passed as the last argument.
