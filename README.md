@@ -89,3 +89,15 @@ For example, notifications can be posted to the Notification Center on OS X by u
 ```ini
 notifier = /usr/bin/terminal-notifier -title ShowRSS -message
 ```
+
+Changelog
+---------
+
+Version 1.0.0, June 2014
+
+- Initial release.
+
+License
+-------
+
+showrss is available under the MIT license. See the LICENSE file for more info.
