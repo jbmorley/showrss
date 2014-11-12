@@ -50,6 +50,7 @@ Configuration
 user_id = 12345
 command = transmission-remote -a
 notifier = /usr/bin/terminal-notifier -title ShowRSS -message
+quality = default
 ```
 
 The configuration file defines two things:
