@@ -107,6 +107,10 @@ Version 1.0.0, June 2014
 
 - Initial release.
 
+Version 1.0.1, November 2014
+
+- Adding support for different quality torrents.
+
 License
 -------
 
