@@ -19,7 +19,11 @@ config = ConfigParser.ConfigParser()
 config.read(config_file)
 user_id = config.get("default", "user_id")
 command = config.get("default", "command").split(" ")
-notifier = config.get("default", "notifier").split(" ")
+notifier = None
+try:
+    notifier = config.get("default", "notifier").split(" ")
+except:
+    pass
 
 # Load the optional quality flag
 quality = "default"
