@@ -103,13 +103,17 @@ notifier = /usr/bin/terminal-notifier -title ShowRSS -message
 Changelog
 ---------
 
-Version 1.0.0, June 2014
+Version 1.0.2, 10/12/2014
 
-- Initial release.
+- FIX: The `notifier` configuration parameter is now optional as described in the readme.
 
 Version 1.0.1, November 2014
 
 - Adding support for different quality torrents.
+
+Version 1.0.0, June 2014
+
+- Initial release.
 
 License
 -------
