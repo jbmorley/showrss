@@ -43,10 +43,10 @@ cache = ConfigParser.ConfigParser()
 cache.read(cachefile)
 
 # Convert the quality setting to the correct parameter.
-hd = { "default": "null", "standard": "0", "high": "1", "all": "2" }[quality]
+hd = { "default": "null", "standard": "sd", "high": "hd", "all": "any" }[quality]
 
 # Generate the URL.
-url = "http://showrss.info/rss.php?user_id=%s&hd=%s&proper=null" % (user_id, hd)
+url = "http://showrss.info/user/%s.rss?magnets=true&namespaces=true&name=clean&quality=%s&re=null" % (user_id, hd)
 
 # Fetch the feed.
 feed = feedparser.parse(url)
