@@ -8,7 +8,9 @@ Requirements
 
 Install the requirements:
 
-    $ pip install -r requirements.txt --use-mirrors
+```bash
+pip install -r requirements.txt --use-mirrors
+```
 
 ### Running under virtualenv
 
